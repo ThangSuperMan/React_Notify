@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import React from 'react'
+import { ToastContainer ,toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 import './App.css';
 
 function App() {
+  let toastId = React.useRef(null);
+
+  const notify = () => {
+    toastId = toast.warn("Warnning in here");
+    console.log(`toastID: ${toastId}`)
+  }
+
+  const updateNotify = () => {
+    toast.update(toastId, {
+      render: "Just update the toast",
+      type: toast.TYPE.SUCCESS,
+      closeButton: true,
+      closeOnClick: true,
+      autoClose: 4000,
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello</h1>
+      <button onClick={notify}>Button notify</button>
+      {/* <ToastContainer /> */}
+      <ToastContainer
+          position="bottom-right"
+          theme="colored"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick={true}
+      />
+      <button onClick={updateNotify}>Update the notify</button>
     </div>
   );
 }
